@@ -3,6 +3,7 @@ package com.devrt.Listzera.services;
 import com.devrt.Listzera.dto.GameDTO;
 import com.devrt.Listzera.dto.GameMinDTO;
 import com.devrt.Listzera.entities.Game;
+import com.devrt.Listzera.projections.GameMinProjection;
 import com.devrt.Listzera.repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,12 @@ public class GameService {
     @Transactional(readOnly = true) // to maintain ACID
     public List<GameMinDTO> findAll(){
         List<Game> result = gameRepository.findAll();
-        return result.stream().map(x -> new GameMinDTO(x)).toList();
+        return result.stream().map(GameMinDTO::new).toList();
     }
+
+    public List<GameMinDTO> findByGameList(Long listId) {
+        List<GameMinProjection> result = gameRepository.searchByList(listId);
+        return result.stream().map(GameMinDTO::new).toList();
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.devrt.Listzera.dto;
 
 import com.devrt.Listzera.entities.Game;
+import com.devrt.Listzera.projections.GameMinProjection;
 import jakarta.persistence.Column;
 
 public class GameMinDTO {
@@ -19,6 +20,14 @@ public class GameMinDTO {
         this.year = entity.getYear();
         this.imgUrl = entity.getImgUrl();
         this.shorDescription = entity.getShortDescription();
+    }
+
+    public GameMinDTO(GameMinProjection projection) {
+        id = projection.getId();
+        title = projection.getTitle();
+        year = projection.getYear();
+        imgUrl = projection.getImgUrl();
+        shorDescription = projection.getShortDescription();
     }
 
     public Long getId() {
